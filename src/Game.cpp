@@ -10,7 +10,12 @@ Game::Game(const char *title, int x, int y, int w, int h, Uint32 flags)
     renderer = SDL_CreateRenderer(window, -1, 0);
 };
 
-Game::~Game() {};
+Game::~Game()
+{
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+};
 
 void Game::gameLoop()
 {
@@ -35,3 +40,22 @@ void Game::handleEvents()
         break;
     }
 };
+
+void Game::render(SDL_Texture *texture)
+{
+    SDL_RenderClear(renderer);
+
+    SDL_Rect destRect = {100, 100, 300, 200};
+    SDL_RenderCopy(renderer, texture, nullptr, nullptr);
+
+    SDL_RenderPresent(renderer);
+};
+
+SDL_Texture *Game::loadTexture(const char *path)
+{
+    SDL_Texture *texture = NULL;
+
+    texture = IMG_LoadTexture(renderer, path);
+
+    return texture;
+}
