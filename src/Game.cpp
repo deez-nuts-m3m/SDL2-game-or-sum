@@ -25,7 +25,7 @@ void Game::gameLoop()
     };
 };
 
-void Game::handleEvents()
+void Game::handleEvents() // TODO add player input
 {
     SDL_Event event;
     SDL_PollEvent(&event);
@@ -41,12 +41,12 @@ void Game::handleEvents()
     }
 };
 
-void Game::render(SDL_Texture *texture)
+void Game::render(SDL_Texture *texture) // TODO make it so textures are renderd from BaseObj
 {
     SDL_RenderClear(renderer);
 
     SDL_Rect destRect = {100, 100, 300, 200};
-    SDL_RenderCopy(renderer, texture, nullptr, nullptr);
+    SDL_RenderCopy(renderer, texture, nullptr, &destRect);
 
     SDL_RenderPresent(renderer);
 };

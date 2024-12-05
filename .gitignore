@@ -1,7 +1,8 @@
-lib/libSDL2main.a
-lib/libSDL2.dll.a
-lib/libSDL2.a
-lib/libSDL2_test.a
-lib/libSDL2_image.la
-lib/libSDL2_image.dll.a
-lib/libSDL2_image.a
+Main.exe
+lib
+SDL2.dll
+SDL2_image.dll
+quickRun.py
+include/sdl
+MakeFile
+.vscode
