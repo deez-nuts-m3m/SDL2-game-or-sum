@@ -1,5 +1,7 @@
-lib
-include
-MakeFile
-SDL2.dll
-SLD2_image.dll
+lib/libSDL2main.a
+lib/libSDL2.dll.a
+lib/libSDL2.a
+lib/libSDL2_test.a
+lib/libSDL2_image.la
+lib/libSDL2_image.dll.a
+lib/libSDL2_image.a

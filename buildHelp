@@ -1,0 +1,6 @@
+use
+mingw32-Make -f MakeFile
+to compile program
+
+to run from terminal use 
+.\Main.exe
