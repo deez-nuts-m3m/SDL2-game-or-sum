@@ -6,6 +6,7 @@
 #include <vector>
 #include <set>
 #include <unordered_set>
+#include <unordered_map>
 #include <headers/DataStructures.h>
 #include <algorithm>
 
@@ -22,6 +23,8 @@ public:
     ~Game();
     void gameLoop();
     SDL_Texture *loadTexture(const char *path);
+
+    std::unordered_map<SDL_Keycode, bool> keyMap;
 
     void addToRenderList(DrawData data);
 

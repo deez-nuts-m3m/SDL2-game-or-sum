@@ -34,7 +34,7 @@ void Game::gameLoop()
     }
 };
 
-void Game::handleEvents() // TODO add player input
+void Game::handleEvents()
 {
     SDL_Event event;
     SDL_PollEvent(&event);
@@ -44,6 +44,19 @@ void Game::handleEvents() // TODO add player input
     case SDL_QUIT:
         gameState = GameState::EXIT;
         break;
+
+    case SDL_KEYDOWN:
+        if (keyMap.find(event.key.keysym.sym) != keyMap.end()) // if key is in map
+        {
+            keyMap[event.key.keysym.sym] = false;
+        }
+        else
+        {
+            keyMap[event.key.keysym.sym] = true;
+        }
+
+    case SDL_KEYUP:
+        keyMap.erase(event.key.keysym.sym);
 
     default:
         break;
