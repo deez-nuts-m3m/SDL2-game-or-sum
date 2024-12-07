@@ -14,9 +14,7 @@ protected:
     int y;
     short width;
     short height;
-    // true = drawDest is recalculated each frame if false must use getters/setters to move object
-    void inactiveSetPos(int nx, int ny); // use only if active is false otherwise just write to x-y
-    // void setDrawLayer(int newLayer); // TODO get this working
+    void setDrawLayer(short newLayer);
 
 public:
     short layer;

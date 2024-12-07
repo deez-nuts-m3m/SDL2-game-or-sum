@@ -9,3 +9,11 @@ struct DrawData
     std::function<void(SDL_Renderer *)> drawFunc;
     bool isUsed = true;
 };
+
+struct CompareDrawData
+{
+    bool operator()(const DrawData &a, const DrawData &b) const
+    {
+        return a.layer < b.layer;
+    }
+};

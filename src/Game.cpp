@@ -19,10 +19,19 @@ Game::~Game()
 
 void Game::gameLoop()
 {
+    frameStart = SDL_GetTicks();
+
     while (gameState != GameState::EXIT)
     {
         handleEvents();
     };
+    render();
+
+    frameTime = SDL_GetTicks() - frameStart;
+    if (frameDelay > frameTime)
+    {
+        SDL_Delay(frameDelay - frameTime);
+    }
 };
 
 void Game::handleEvents() // TODO add player input
@@ -41,13 +50,21 @@ void Game::handleEvents() // TODO add player input
     }
 };
 
-void Game::render() // TODO make it so textures are renderd from BaseObj
+void Game::render()
 {
     SDL_RenderClear(renderer);
 
-    for (DrawData drawInfo : drawList)
+    for (auto it = drawList.begin(); it != drawList.end();) // ngl chat gpt did this one
     {
-        drawInfo.drawFunc(renderer);
+        if ((*it)->isUsed)
+        {
+            (*it)->drawFunc(renderer);
+            ++it;
+        }
+        else
+        {
+            it = drawList.erase(it);
+        }
     }
 
     SDL_RenderPresent(renderer);
@@ -62,28 +79,7 @@ SDL_Texture *Game::loadTexture(const char *path)
     return texture;
 }
 
-int Game::addToRenderList(DrawData data)
+void Game::addToRenderList(DrawData data)
 {
-    if (!emptyList.empty())
-    {
-        int i = emptyList.top();
-        drawList[i] = data;
-        emptyList.pop();
-        sortDrawList(); // TODO make this more efficient
-        return i;
-    }
-    else
-    {
-        drawList.push_back(data);
-        sortDrawList(); // TODO make this more efficient
-        return drawList.size() - 1;
-    };
-}
-
-void Game::sortDrawList()
-{
-    std::sort(drawList.begin(), drawList.end(), [](const DrawData &a, const DrawData &b)
-              {
-                  return a.layer < b.layer; // Compare layers
-              });
+    drawList.insert(&data);
 }

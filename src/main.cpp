@@ -1,4 +1,4 @@
-#define SDL_MAIN_HANDLED
+#define SDL_MAIN_HANDLED // if this is not here the compiler will whip my ass
 #include <headers/Game.h>
 #include <headers/BaseObj.h>
 
@@ -17,8 +17,6 @@ int main(int argc, char *argv[])
     game.addToRenderList(testObj.getDrawData());
     game.addToRenderList(testObj2.getDrawData());
     game.addToRenderList(testObj3.getDrawData());
-
-    game.render();
 
     game.gameLoop();
     return 0;

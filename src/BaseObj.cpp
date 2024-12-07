@@ -13,12 +13,6 @@ BaseObj::BaseObj(int X, int Y, int W, int H, short DrawLayer,
     DrawDestonation = {x, y, width, height};
 }
 
-void BaseObj::inactiveSetPos(int nx, int ny)
-{
-    x = nx;
-    y = ny;
-}
-
 void BaseObj::draw(SDL_Renderer *renderer)
 {
     SDL_RenderCopy(renderer, sprite, nullptr, &DrawDestonation); // EZ
@@ -28,4 +22,9 @@ DrawData BaseObj::getDrawData()
 {
     DrawData data = {layer, std::bind(&BaseObj::draw, this, std::placeholders::_1), true};
     return data;
+}
+
+void BaseObj::setDrawLayer(short newLayer)
+{
+    layer = newLayer;
 }
