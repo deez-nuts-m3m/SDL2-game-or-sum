@@ -3,6 +3,10 @@
 #include <iostream>
 #include <sdl/SDL.h>
 #include <sdl/SDL_image.h>
+#include <vector>
+#include <stack>
+#include <headers/DataStructures.h>
+#include <algorithm>
 
 enum class GameState
 {
@@ -17,13 +21,15 @@ public:
     ~Game();
     void gameLoop();
     SDL_Texture *loadTexture(const char *path);
-    void render(SDL_Texture *texture);
+    void render();
+
+    int addToRenderList(DrawData data);
 
 private:
     void handleEvents();
-
-    void clear();
-    void display();
+    void sortDrawList();
+    std::vector<DrawData> drawList; // i have no idea what im doing
+    std::stack<int> emptyList;
     SDL_Window *window;
     SDL_Renderer *renderer;
 
