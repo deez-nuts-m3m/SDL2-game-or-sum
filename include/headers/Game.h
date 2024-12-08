@@ -37,7 +37,7 @@ private:
     SDL_Renderer *renderer;
 
     int frameDelay = 1000 / 60; // 60 FPS
-    int frameStart, frameTime;
+    int frameStart, frameTime, lastFrameTime;
 
     GameState gameState;
 };

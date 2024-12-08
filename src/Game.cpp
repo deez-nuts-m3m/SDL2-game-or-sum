@@ -20,20 +20,23 @@ Game::~Game()
 
 void Game::gameLoop()
 {
-    frameStart = SDL_GetTicks();
-
     while (gameState != GameState::EXIT)
     {
+        frameStart = SDL_GetTicks();
+
         handleEvents();
         render();
-    };
 
-    frameTime = SDL_GetTicks() - frameStart;
-    if (frameDelay > frameTime)
-    {
-        SDL_Delay(frameDelay - frameTime);
-    }
-};
+        frameTime = SDL_GetTicks() - frameStart;
+
+        if (frameDelay > frameTime)
+        {
+            SDL_Delay(frameDelay - frameTime);
+        }
+
+        std::cout << "FPS: " << 1000 / (frameTime > 0 ? frameTime : 1) << std::endl;
+    };
+}
 
 void Game::handleEvents()
 {
@@ -47,7 +50,6 @@ void Game::handleEvents()
         break;
 
     case SDL_KEYDOWN:
-        std::cout << "key press" << std::endl;
         if (keyMap.find(event.key.keysym.sym) != keyMap.end()) // if key is in map
         {
             keyMap[event.key.keysym.sym] = false;
@@ -58,7 +60,6 @@ void Game::handleEvents()
         }
         break;
     case SDL_KEYUP:
-        std::cout << "key release" << std::endl;
         keyMap.erase(event.key.keysym.sym);
         break;
     default:
@@ -69,11 +70,6 @@ void Game::handleEvents()
 void Game::render()
 {
     SDL_RenderClear(renderer);
-
-    for (const auto &pair : keyMap)
-    {
-        std::cout << pair.first << ": " << (pair.second ? "true" : "false") << std::endl;
-    }
 
     for (auto it = drawList.begin(); it != drawList.end();) // ngl chat gpt did this one
     {

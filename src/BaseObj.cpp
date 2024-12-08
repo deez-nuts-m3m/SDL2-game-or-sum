@@ -18,19 +18,19 @@ void BaseObj::draw(SDL_Renderer *renderer, std::unordered_map<SDL_Keycode, bool>
 {
     if (keyboard->find(SDLK_w) != keyboard->end()) // -> = deref pointer
     {
-        y -= 5;
+        y--;
     };
     if (keyboard->find(SDLK_s) != keyboard->end())
     {
-        y += 5;
+        y++;
     };
     if (keyboard->find(SDLK_a) != keyboard->end())
     {
-        x -= 5;
+        x--;
     };
     if (keyboard->find(SDLK_d) != keyboard->end())
     {
-        x += 5;
+        x++;
     };
     DrawDestonation = {x, y, width, height};
     SDL_RenderCopy(renderer, sprite, nullptr, &DrawDestonation); // EZ
