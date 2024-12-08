@@ -1,4 +1,5 @@
 #include <headers/Game.h>
+#include <iostream>
 
 Game::Game(const char *title, int x, int y, int w, int h, Uint32 flags)
 {
@@ -24,8 +25,8 @@ void Game::gameLoop()
     while (gameState != GameState::EXIT)
     {
         handleEvents();
+        render();
     };
-    render();
 
     frameTime = SDL_GetTicks() - frameStart;
     if (frameDelay > frameTime)
@@ -46,6 +47,7 @@ void Game::handleEvents()
         break;
 
     case SDL_KEYDOWN:
+        std::cout << "key press" << std::endl;
         if (keyMap.find(event.key.keysym.sym) != keyMap.end()) // if key is in map
         {
             keyMap[event.key.keysym.sym] = false;
@@ -54,10 +56,11 @@ void Game::handleEvents()
         {
             keyMap[event.key.keysym.sym] = true;
         }
-
+        break;
     case SDL_KEYUP:
+        std::cout << "key release" << std::endl;
         keyMap.erase(event.key.keysym.sym);
-
+        break;
     default:
         break;
     }
@@ -67,11 +70,16 @@ void Game::render()
 {
     SDL_RenderClear(renderer);
 
+    for (const auto &pair : keyMap)
+    {
+        std::cout << pair.first << ": " << (pair.second ? "true" : "false") << std::endl;
+    }
+
     for (auto it = drawList.begin(); it != drawList.end();) // ngl chat gpt did this one
     {
         if ((*it)->isUsed)
         {
-            (*it)->drawFunc(renderer);
+            (*it)->drawFunc(renderer, &keyMap);
             ++it;
         }
         else

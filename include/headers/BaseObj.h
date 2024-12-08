@@ -1,7 +1,10 @@
+#pragma once
+
 #include <sdl/SDL.h>
 #include <sdl/SDL_image.h>
 #include <functional>
 #include <headers/DataStructures.h>
+#include <unordered_map>
 
 class BaseObj
 {
@@ -19,8 +22,8 @@ protected:
 public:
     short layer;
     DrawData getDrawData();
-    void draw(SDL_Renderer *renderer);
+    void draw(SDL_Renderer *renderer, std::unordered_map<SDL_Keycode, bool> *keyboard);
     BaseObj(int x, int y, int w, int h, short DrawLayer = 1,
             SDL_Texture *Sprite = NULL);
-    // add more functions as needed
+    void draw(SDL_Renderer *renderer);
 };

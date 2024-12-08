@@ -1,4 +1,5 @@
 #include <headers/BaseObj.h>
+#include "BaseObj.h"
 
 BaseObj::BaseObj(int X, int Y, int W, int H, short DrawLayer,
                  SDL_Texture *Sprite)
@@ -13,14 +14,35 @@ BaseObj::BaseObj(int X, int Y, int W, int H, short DrawLayer,
     DrawDestonation = {x, y, width, height};
 }
 
-void BaseObj::draw(SDL_Renderer *renderer)
+void BaseObj::draw(SDL_Renderer *renderer, std::unordered_map<SDL_Keycode, bool> *keyboard)
 {
+    if (keyboard->find(SDLK_w) != keyboard->end()) // -> = deref pointer
+    {
+        y -= 5;
+    };
+    if (keyboard->find(SDLK_s) != keyboard->end())
+    {
+        y += 5;
+    };
+    if (keyboard->find(SDLK_a) != keyboard->end())
+    {
+        x -= 5;
+    };
+    if (keyboard->find(SDLK_d) != keyboard->end())
+    {
+        x += 5;
+    };
+    DrawDestonation = {x, y, width, height};
     SDL_RenderCopy(renderer, sprite, nullptr, &DrawDestonation); // EZ
 }
 
 DrawData BaseObj::getDrawData()
 {
-    DrawData data = {layer, std::bind(&BaseObj::draw, this, std::placeholders::_1), true};
+    DrawData data = {layer, [this](SDL_Renderer *renderer, std::unordered_map<SDL_Keycode, bool> *keyboard)
+                     {
+                         this->draw(renderer, keyboard);
+                     },
+                     true};
     return data;
 }
 
