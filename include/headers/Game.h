@@ -25,6 +25,7 @@ public:
     SDL_Texture *loadTexture(const char *path);
 
     std::unordered_map<SDL_Keycode, bool> keyMap;
+    MouseData mouseInfo;
 
     void addToRenderList(DrawData data);
 

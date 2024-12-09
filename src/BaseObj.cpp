@@ -14,7 +14,7 @@ BaseObj::BaseObj(int X, int Y, int W, int H, short DrawLayer,
     DrawDestonation = {x, y, width, height};
 }
 
-void BaseObj::draw(SDL_Renderer *renderer, std::unordered_map<SDL_Keycode, bool> *keyboard)
+void BaseObj::draw(SDL_Renderer *renderer, std::unordered_map<SDL_Keycode, bool> *keyboard, MouseData *mouseInfo)
 {
     if (keyboard->find(SDLK_w) != keyboard->end()) // -> = deref pointer
     {
@@ -38,9 +38,9 @@ void BaseObj::draw(SDL_Renderer *renderer, std::unordered_map<SDL_Keycode, bool>
 
 DrawData BaseObj::getDrawData()
 {
-    DrawData data = {layer, [this](SDL_Renderer *renderer, std::unordered_map<SDL_Keycode, bool> *keyboard)
+    DrawData data = {layer, [this](SDL_Renderer *renderer, std::unordered_map<SDL_Keycode, bool> *keyboard, MouseData *mouseInfo)
                      {
-                         this->draw(renderer, keyboard);
+                         this->draw(renderer, keyboard, mouseInfo);
                      },
                      true};
     return data;

@@ -24,6 +24,7 @@ void Game::gameLoop()
     {
         frameStart = SDL_GetTicks();
 
+        mouseInfo.LMBPressed = mouseInfo.RMBPressed = mouseInfo.MMBPressed = false;
         handleEvents();
         render();
 
@@ -33,8 +34,6 @@ void Game::gameLoop()
         {
             SDL_Delay(frameDelay - frameTime);
         }
-
-        std::cout << "FPS: " << 1000 / (frameTime > 0 ? frameTime : 1) << std::endl;
     };
 }
 
@@ -62,6 +61,41 @@ void Game::handleEvents()
     case SDL_KEYUP:
         keyMap.erase(event.key.keysym.sym);
         break;
+    case SDL_MOUSEMOTION:
+        mouseInfo.x = event.motion.x;
+        mouseInfo.y = event.motion.y;
+        break;
+    case SDL_MOUSEBUTTONDOWN:
+        switch (event.button.button)
+        {
+        case SDL_BUTTON_LEFT:
+            mouseInfo.LMBPressed = true;
+            mouseInfo.LMB = true;
+            break;
+        case SDL_BUTTON_RIGHT:
+            mouseInfo.RMBPressed = true;
+            mouseInfo.RMB = true;
+            break;
+        case SDL_BUTTON_MIDDLE:
+            mouseInfo.MMBPressed = true;
+            mouseInfo.MMB = true;
+            break;
+        }
+        break;
+    case SDL_MOUSEBUTTONUP:
+        switch (event.button.button)
+        {
+        case SDL_BUTTON_LEFT:
+            mouseInfo.LMB = false;
+            break;
+        case SDL_BUTTON_RIGHT:
+            mouseInfo.RMB = false;
+            break;
+        case SDL_BUTTON_MIDDLE:
+            mouseInfo.MMB = false;
+            break;
+        }
+        break;
     default:
         break;
     }
@@ -75,7 +109,7 @@ void Game::render()
     {
         if ((*it)->isUsed)
         {
-            (*it)->drawFunc(renderer, &keyMap);
+            (*it)->drawFunc(renderer, &keyMap, &mouseInfo);
             ++it;
         }
         else
