@@ -1,7 +1,5 @@
 Main.exe
 lib
-SDL2.dll
-SDL2_image.dll
 quickRun.py
 include/sdl
 MakeFile

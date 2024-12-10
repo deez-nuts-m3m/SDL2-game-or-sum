@@ -16,23 +16,7 @@ BaseObj::BaseObj(int X, int Y, int W, int H, short DrawLayer,
 
 void BaseObj::draw(SDL_Renderer *renderer, std::unordered_map<SDL_Keycode, bool> *keyboard, MouseData *mouseInfo)
 {
-    if (keyboard->find(SDLK_w) != keyboard->end()) // -> = deref pointer
-    {
-        y--;
-    };
-    if (keyboard->find(SDLK_s) != keyboard->end())
-    {
-        y++;
-    };
-    if (keyboard->find(SDLK_a) != keyboard->end())
-    {
-        x--;
-    };
-    if (keyboard->find(SDLK_d) != keyboard->end())
-    {
-        x++;
-    };
-    DrawDestonation = {x, y, width, height};
+    DrawDestonation = {x, y, width, height};                     // TODO optimise
     SDL_RenderCopy(renderer, sprite, nullptr, &DrawDestonation); // EZ
 }
 

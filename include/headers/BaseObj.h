@@ -8,10 +8,8 @@
 
 class BaseObj
 {
-private:
-    SDL_Rect DrawDestonation;
-
 protected:
+    SDL_Rect DrawDestonation;
     SDL_Texture *sprite;
     int x;
     int y;

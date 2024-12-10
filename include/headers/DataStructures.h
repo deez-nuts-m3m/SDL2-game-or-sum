@@ -4,6 +4,13 @@
 #include <sdl/SDL.h>
 #include <unordered_map>
 
+struct MouseData
+{
+    int x, y;
+    bool LMB = false, RMB = false, MMB = false;
+    bool LMBPressed = false, RMBPressed = false, MMBPressed = false;
+};
+
 struct DrawData
 {
     short layer;
@@ -17,11 +24,4 @@ struct CompareDrawData
     {
         return a->layer < b->layer;
     }
-};
-
-struct MouseData
-{
-    int x, y;
-    bool LMB = false, RMB = false, MMB = false;
-    bool LMBPressed = false, RMBPressed = false, MMBPressed = false;
 };
